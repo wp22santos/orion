@@ -525,55 +525,6 @@ input[type="number"] {
 /* Estilos para o Modal de Busca */
 .mdl-dialog {
     width: 80%;
-    max-width: 600px;
-}
-
-.mdl-dialog__title {
-    color: #3f51b5;
-}
-
-.resultado-busca {
-    margin-bottom: 1rem;
-}
-
-.resultado-busca .mdl-card__title {
-    padding: 12px;
-    background-color: #f5f5f5;
-}
-
-.resultado-busca .mdl-card__supporting-text {
-    padding: 8px 12px;
-}
-
-.resultado-busca .mdl-card__actions {
-    display: flex;
-    justify-content: flex-end;
-    padding: 8px;
-}
-
-/* Ajustes para dispositivos móveis */
-@media (max-width: 479px) {
-    .mdl-dialog {
-        width: 95%;
-    }
-
-    .mdl-button {
-        margin-top: 0.5rem;
-        margin-right: 0.5rem;
-    }
-
-    .mdl-card__title {
-        padding: 8px;
-    }
-
-    .mdl-card__supporting-text {
-        padding: 8px;
-    }
-}
-
-/* Estilos para a página de Busca */
-.mdl-dialog {
-    width: 80%;
     max-width: 800px;
 }
 
@@ -965,4 +916,147 @@ input[type="date"]:focus {
     .pessoa-foto.sem-foto i {
         font-size: 48px;
     }
+} 
+
+/* Estilos para modais */
+.mdl-dialog {
+    width: 96%;
+    max-width: 96%;
+    max-height: 90vh;
+    margin: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.mdl-dialog__title {
+    margin: 0;
+    padding: 24px 24px 0;
+    color: #3f51b5;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.mdl-dialog__content {
+    padding: 20px 24px;
+    color: rgba(0,0,0,.87);
+    overflow-y: auto;
+    flex: 1;
+}
+
+.mdl-dialog__actions {
+    padding: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+    border-top: 1px solid rgba(0,0,0,.12);
+}
+
+/* Ajustes para desktop */
+@media (min-width: 481px) {
+    .mdl-dialog {
+        width: 80%;
+        max-width: 600px;
+        margin: 24px auto;
+    }
+}
+
+/* Estilos para cards de abordagem */
+.abordagem-card {
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.abordagem-card:last-child {
+    margin-bottom: 0;
+}
+
+.abordagem-card .mdl-card__title {
+    background-color: #3f51b5;
+    color: white;
+    padding: 16px;
+}
+
+.abordagem-card .mdl-card__title-text {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.abordagem-card .mdl-card__supporting-text {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px;
+}
+
+.abordagem-card .mdl-card__actions {
+    border-top: 1px solid rgba(0,0,0,.12);
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Ajustes para mobile */
+@media (max-width: 480px) {
+    .mdl-dialog {
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+
+    .mdl-dialog__title {
+        padding: 16px 16px 0;
+        font-size: 18px;
+    }
+
+    .mdl-dialog__content {
+        padding: 16px;
+    }
+
+    .abordagem-card {
+        margin-bottom: 8px;
+    }
+
+    .abordagem-card .mdl-card__title {
+        padding: 12px;
+    }
+
+    .abordagem-card .mdl-card__supporting-text {
+        padding: 12px;
+    }
+
+    .abordagem-card .mdl-card__actions {
+        padding: 8px;
+    }
+
+    .mdl-button {
+        min-width: auto;
+    }
+}
+
+/* Mensagem de sem abordagens */
+.sem-abordagens {
+    text-align: center;
+    color: rgba(0,0,0,.54);
+    padding: 32px 16px;
+    font-size: 16px;
+}
+
+/* Ajustes para botões em cards */
+.btn-ver-detalhes {
+    margin: 0;
+}
+
+/* Ajustes para scroll */
+.mdl-dialog__content {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Ajustes para o overlay do modal */
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
 } 
