@@ -6,8 +6,8 @@ body {
 
 /* Container dos formulários */
 .form-container {
-    max-width: 400px;
-    margin: 4rem auto;
+    max-width: 600px;
+    margin: 2rem auto;
     padding: 0 1rem;
 }
 
@@ -15,8 +15,6 @@ body {
 .mdl-card {
     width: 100%;
     min-height: auto;
-    margin: 0 auto;
-    box-sizing: border-box;
 }
 
 .mdl-card__title {
@@ -27,7 +25,6 @@ body {
 
 .mdl-card__supporting-text {
     width: 100%;
-    padding: 16px;
     box-sizing: border-box;
 }
 
@@ -86,13 +83,11 @@ body {
 /* Estilos dos campos de texto */
 .mdl-textfield {
     width: 100%;
-    margin-bottom: 8px;
 }
 
 /* Estilos dos botões */
 .mdl-button {
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin-top: 1rem;
 }
 
 .mdl-button--raised.mdl-button--colored {
@@ -1059,4 +1054,8 @@ input[type="date"]:focus {
 /* Ajustes para o overlay do modal */
 dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
+} 
+
+.page-content {
+    padding: 1rem;
 } 

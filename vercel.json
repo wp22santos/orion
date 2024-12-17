@@ -11,7 +11,20 @@
   ],
   "routes": [
     {
-      "handle": "filesystem"
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/src/(.*)",
+      "dest": "/src/$1"
+    },
+    {
+      "src": "/(.*)\\.js",
+      "dest": "/$1.js"
+    },
+    {
+      "src": "/(.*)\\.css",
+      "dest": "/$1.css"
     },
     {
       "src": "/(.*)",
