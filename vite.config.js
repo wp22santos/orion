@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import legacy from '@vitejs/plugin-legacy';
+import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [
@@ -10,16 +11,19 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
+    emptyOutDir: true,
+    copyPublicDir: true,
     rollupOptions: {
       input: {
-        main: './index.html',
-        dashboard: './dashboard.html',
-        abordagem: './abordagem.html',
-        busca: './busca.html'
+        main: resolve(__dirname, 'index.html'),
+        dashboard: resolve(__dirname, 'dashboard.html'),
+        abordagem: resolve(__dirname, 'abordagem.html'),
+        busca: resolve(__dirname, 'busca.html')
       }
     }
   },
   server: {
     port: 3000
-  }
+  },
+  publicDir: 'public'
 }); 

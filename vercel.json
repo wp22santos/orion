@@ -11,32 +11,11 @@
   ],
   "routes": [
     {
-      "src": "^/js/(.*)$",
-      "dest": "/js/$1"
-    },
-    {
-      "src": "^/styles/(.*)$",
-      "dest": "/styles/$1"
-    },
-    {
-      "src": "^/icons/(.*)$",
-      "dest": "/icons/$1"
-    },
-    {
-      "src": "^/manifest.json",
-      "dest": "/manifest.json"
-    },
-    {
-      "src": "^/sw.js",
-      "dest": "/sw.js"
-    },
-    {
-      "src": "^/offline.html",
-      "dest": "/offline.html"
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/index.html"
     }
   ]
 } 
