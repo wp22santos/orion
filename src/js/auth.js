@@ -1,10 +1,14 @@
 import CryptoJS from 'crypto-js';
 import db from './db.js';
 
+function hashPassword(password) {
+    return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+}
+
 export async function login(email, password) {
     try {
         console.log('Tentando login com email:', email);
-        const hashedPassword = CryptoJS.SHA256(password).toString();
+        const hashedPassword = hashPassword(password);
         const user = await db.users.where('email').equals(email).first();
         
         console.log('Usuário encontrado:', user);
@@ -13,6 +17,11 @@ export async function login(email, password) {
             console.log('Usuário não encontrado');
             return false;
         }
+        
+        console.log('Comparando senhas:', {
+            stored: user.password,
+            provided: hashedPassword
+        });
         
         if (user.password === hashedPassword) {
             console.log('Senha correta, login bem sucedido');
@@ -43,14 +52,20 @@ export async function register(email, password) {
             return false;
         }
         
-        const hashedPassword = CryptoJS.SHA256(password).toString();
+        const hashedPassword = hashPassword(password);
+        console.log('Senha hasheada:', hashedPassword);
+        
         const id = await db.users.add({
             email,
             password: hashedPassword,
             createdAt: new Date().toISOString()
         });
         
-        console.log('Usuário registrado com sucesso, id:', id);
+        console.log('Usuário registrado com sucesso:', {
+            id,
+            email,
+            hashedPassword
+        });
         return true;
     } catch (error) {
         console.error('Erro ao registrar usuário:', error);
@@ -59,9 +74,12 @@ export async function register(email, password) {
 }
 
 export function isAuthenticated() {
-    return sessionStorage.getItem('currentUser') !== null;
+    const user = sessionStorage.getItem('currentUser');
+    console.log('Verificando autenticação:', user);
+    return user !== null;
 }
 
 export function logout() {
     sessionStorage.removeItem('currentUser');
+    console.log('Usuário deslogado');
 } 
