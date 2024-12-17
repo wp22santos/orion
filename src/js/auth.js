@@ -74,9 +74,26 @@ export async function register(email, password) {
 }
 
 export function isAuthenticated() {
-    const user = sessionStorage.getItem('currentUser');
-    console.log('Verificando autenticação:', user);
-    return user !== null;
+    try {
+        const userStr = sessionStorage.getItem('currentUser');
+        console.log('Verificando autenticação:', userStr);
+        
+        if (!userStr) {
+            console.log('Nenhum usuário encontrado no sessionStorage');
+            return false;
+        }
+
+        const user = JSON.parse(userStr);
+        if (!user || !user.id || !user.email) {
+            console.log('Dados do usuário inválidos:', user);
+            return false;
+        }
+
+        return true;
+    } catch (error) {
+        console.error('Erro ao verificar autenticação:', error);
+        return false;
+    }
 }
 
 export function logout() {

@@ -2,9 +2,16 @@ import { isAuthenticated, logout } from './auth.js';
 import db from './db.js';
 
 // Verifica autenticação
+console.log('Verificando autenticação no dashboard...');
 if (!isAuthenticated()) {
-    window.location.replace('/');
+    console.log('Usuário não autenticado, redirecionando para login...');
+    window.location.href = '/';
+    throw new Error('Acesso não autorizado');
 }
+
+// Carrega dados do usuário
+const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+console.log('Usuário atual:', currentUser);
 
 // Elementos do DOM
 const btnLogout = document.querySelector('#btnLogout');

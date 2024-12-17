@@ -34,7 +34,16 @@ loginForm?.addEventListener('submit', async (e) => {
         
         if (loginSuccess) {
             console.log('Login bem sucedido, redirecionando...');
-            window.location.replace('/dashboard.html');
+            // Garante que o usuário está na sessionStorage antes de redirecionar
+            const user = sessionStorage.getItem('currentUser');
+            if (!user) {
+                console.error('Erro: usuário não encontrado na sessionStorage após login');
+                alert('Erro ao fazer login. Por favor, tente novamente.');
+                return;
+            }
+            
+            // Força o redirecionamento usando location.href
+            window.location.href = '/dashboard.html';
         } else {
             console.log('Login falhou');
             alert('Email ou senha inválidos');
