@@ -3,13 +3,34 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "zeroConfig": true
-      }
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
+    {
+      "src": "^/js/(.*)$",
+      "dest": "/public/js/$1"
+    },
+    {
+      "src": "^/styles/(.*)$",
+      "dest": "/public/styles/$1"
+    },
+    {
+      "src": "^/icons/(.*)$",
+      "dest": "/public/icons/$1"
+    },
+    {
+      "src": "^/manifest.json",
+      "dest": "/public/manifest.json"
+    },
+    {
+      "src": "^/sw.js",
+      "dest": "/public/sw.js"
+    },
+    {
+      "src": "^/offline.html",
+      "dest": "/public/offline.html"
+    },
     {
       "src": "/(.*)",
       "dest": "/$1"
