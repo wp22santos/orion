@@ -2,8 +2,8 @@ import { login, register, isAuthenticated } from './auth.js';
 import db from './db.js';
 
 // Verifica se já está autenticado
-if (isAuthenticated()) {
-    window.location.href = '/dashboard.html';
+if (isAuthenticated() && window.location.pathname === '/') {
+    window.location.replace('/dashboard.html');
 }
 
 // Elementos do DOM
@@ -13,8 +13,12 @@ const btnLogin = document.querySelector('#btnLogin');
 const btnRegistro = document.querySelector('#btnRegistro');
 
 // Mostra o formulário de login por padrão
-document.querySelector('#loginForm').style.display = 'block';
-document.querySelector('#registroForm').style.display = 'none';
+if (document.querySelector('#loginForm')) {
+    document.querySelector('#loginForm').style.display = 'block';
+}
+if (document.querySelector('#registroForm')) {
+    document.querySelector('#registroForm').style.display = 'none';
+}
 
 // Event Listeners
 loginForm?.addEventListener('submit', async (e) => {
@@ -25,9 +29,12 @@ loginForm?.addEventListener('submit', async (e) => {
     console.log('Tentando fazer login...');
     
     try {
-        if (await login(email, senha)) {
+        const loginSuccess = await login(email, senha);
+        console.log('Resultado do login:', loginSuccess);
+        
+        if (loginSuccess) {
             console.log('Login bem sucedido, redirecionando...');
-            window.location.href = '/dashboard.html';
+            window.location.replace('/dashboard.html');
         } else {
             console.log('Login falhou');
             alert('Email ou senha inválidos');
@@ -57,18 +64,25 @@ registroForm?.addEventListener('submit', async (e) => {
     console.log('Tentando registrar usuário...');
     
     try {
-        if (await register(email, senha)) {
+        const registerSuccess = await register(email, senha);
+        console.log('Resultado do registro:', registerSuccess);
+        
+        if (registerSuccess) {
             console.log('Registro bem sucedido');
             alert('Usuário registrado com sucesso');
+            
             // Após registrar, faz login automaticamente
-            if (await login(email, senha)) {
+            const loginSuccess = await login(email, senha);
+            console.log('Resultado do login automático:', loginSuccess);
+            
+            if (loginSuccess) {
                 console.log('Login automático bem sucedido, redirecionando...');
-                window.location.href = '/dashboard.html';
+                window.location.replace('/dashboard.html');
             } else {
                 console.log('Login automático falhou');
                 alert('Registro concluído, mas houve um erro ao fazer login. Por favor, faça login manualmente.');
                 // Mostra o formulário de login
-                btnLogin.click();
+                if (btnLogin) btnLogin.click();
             }
         } else {
             console.log('Registro falhou');
@@ -83,12 +97,16 @@ registroForm?.addEventListener('submit', async (e) => {
 // Alternar entre formulários
 btnLogin?.addEventListener('click', (e) => {
     e.preventDefault();
-    document.querySelector('#loginForm').style.display = 'block';
-    document.querySelector('#registroForm').style.display = 'none';
+    const loginForm = document.querySelector('#loginForm');
+    const registroForm = document.querySelector('#registroForm');
+    if (loginForm) loginForm.style.display = 'block';
+    if (registroForm) registroForm.style.display = 'none';
 });
 
 btnRegistro?.addEventListener('click', (e) => {
     e.preventDefault();
-    document.querySelector('#loginForm').style.display = 'none';
-    document.querySelector('#registroForm').style.display = 'block';
+    const loginForm = document.querySelector('#loginForm');
+    const registroForm = document.querySelector('#registroForm');
+    if (loginForm) loginForm.style.display = 'none';
+    if (registroForm) registroForm.style.display = 'block';
 }); 

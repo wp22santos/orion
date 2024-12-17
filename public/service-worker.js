@@ -5,9 +5,6 @@ const urlsToCache = [
   '/dashboard.html',
   '/abordagem.html',
   '/busca.html',
-  '/src/js/main.js',
-  '/src/js/auth.js',
-  '/src/js/db.js',
   '/styles/main.css',
   'https://fonts.googleapis.com/icon?family=Material+Icons',
   'https://code.getmdl.io/1.3.0/material.indigo-pink.min.css',
@@ -31,9 +28,32 @@ self.addEventListener('install', event => {
         );
       })
   );
+  // Força o Service Worker a se tornar ativo
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+  // Força o Service Worker a controlar todas as páginas
+  return self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
+  // Ignora requisições para outros domínios
+  if (!event.request.url.startsWith(self.location.origin)) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -48,7 +68,7 @@ self.addEventListener('fetch', event => {
         return fetch(fetchRequest).then(
           response => {
             // Verifica se recebemos uma resposta válida
-            if(!response || response.status !== 200 || response.type !== 'basic') {
+            if(!response || response.status !== 200) {
               return response;
             }
 
