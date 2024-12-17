@@ -19,6 +19,11 @@ export default defineConfig({
         dashboard: resolve(__dirname, 'dashboard.html'),
         abordagem: resolve(__dirname, 'abordagem.html'),
         busca: resolve(__dirname, 'busca.html')
+      },
+      output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
       }
     }
   },

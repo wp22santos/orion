@@ -1,0 +1,45 @@
+.form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.mdl-card {
+    width: 100%;
+    min-height: auto;
+}
+
+.mdl-card__supporting-text {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mdl-textfield {
+    width: 100%;
+}
+
+.mdl-button {
+    margin-top: 1rem;
+}
+
+.page-content {
+    padding: 1rem;
+}
+
+/* Ajustes para o formulário de login/registro */
+#loginForm, #registroForm {
+    display: block;
+}
+
+#registroForm {
+    display: none;
+}
+
+.mdl-card__title {
+    background-color: #3f51b5;
+    color: white;
+}
+
+.mdl-button--raised.mdl-button--colored {
+    background-color: #3f51b5;
+} 
