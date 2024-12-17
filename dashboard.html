@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Policial - Dashboard</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">Pessoas Abordadas</span>
+                <div class="mdl-layout-spacer"></div>
+                <button id="btnBackup" class="mdl-button mdl-js-button mdl-button--icon">
+                    <i class="material-icons">backup</i>
+                </button>
+                <button id="btnLogout" class="mdl-button mdl-js-button mdl-button--icon">
+                    <i class="material-icons">exit_to_app</i>
+                </button>
+            </div>
+        </header>
+
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Menu</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/abordagem.html">
+                    <i class="material-icons">add</i> Nova Abordagem
+                </a>
+                <a class="mdl-navigation__link active" href="/dashboard.html">
+                    <i class="material-icons">people</i> Pessoas
+                </a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <!-- Lista de Pessoas -->
+                <div class="mdl-grid" id="pessoasContainer">
+                    <!-- Cards de pessoas serão inseridos aqui -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Abordagens da Pessoa -->
+    <dialog class="mdl-dialog" id="modalAbordagens">
+        <div class="mdl-dialog__content">
+            <h4 class="mdl-dialog__title">Abordagens de <span id="tituloPessoa"></span></h4>
+            <div id="listaAbordagens">
+                <!-- Lista de abordagens será inserida aqui -->
+            </div>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised" id="btnFecharAbordagens">Fechar</button>
+        </div>
+    </dialog>
+
+    <!-- Modal de Detalhes da Abordagem -->
+    <dialog class="mdl-dialog" id="modalDetalhesAbordagem">
+        <div class="mdl-dialog__content">
+            <h4 class="mdl-dialog__title">Detalhes da Abordagem</h4>
+            <!-- Conteúdo será inserido dinamicamente -->
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised" id="btnFecharDetalhes">Fechar</button>
+        </div>
+    </dialog>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+    <script src="/js/db.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/auth-check.js"></script>
+    <script src="/js/backup.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html> 

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Policial - Busca Avançada</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/styles/main.css">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">Busca Avançada</span>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </header>
+
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Menu</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/dashboard.html">
+                    <i class="material-icons">dashboard</i> Dashboard
+                </a>
+                <a class="mdl-navigation__link" href="/abordagem.html">
+                    <i class="material-icons">add_circle</i> Nova Abordagem
+                </a>
+                <a class="mdl-navigation__link" href="#" id="btnRelatorios">
+                    <i class="material-icons">assessment</i> Relatórios
+                </a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <div class="mdl-grid">
+                    <!-- Filtros de Busca -->
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <div class="mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Busca Inteligente</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                <form id="formBusca">
+                                    <div class="mdl-grid">
+                                        <div class="mdl-cell mdl-cell--12-col">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%;">
+                                                <input class="mdl-textfield__input" type="text" id="termoBusca">
+                                                <label class="mdl-textfield__label" for="termoBusca">Digite qualquer informação (nome, RG, CPF, placa, endereço, observações...)</label>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Filtros de Data (opcional) -->
+                                        <div class="mdl-cell mdl-cell--6-col">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" type="date" id="dataInicio">
+                                                <label class="mdl-textfield__label" for="dataInicio">Data Início (opcional)</label>
+                                            </div>
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--6-col">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" type="date" id="dataFim">
+                                                <label class="mdl-textfield__label" for="dataFim">Data Fim (opcional)</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                        <i class="material-icons">search</i> Buscar
+                                    </button>
+                                    <button type="reset" class="mdl-button mdl-js-button mdl-button--raised">
+                                        <i class="material-icons">clear</i> Limpar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resultados da Busca -->
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <div id="resultadosBusca" class="mdl-grid">
+                            <!-- Resultados serão adicionados aqui dinamicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Detalhes -->
+    <dialog class="mdl-dialog" id="modalDetalhes">
+        <h4 class="mdl-dialog__title">Detalhes da Abordagem</h4>
+        <div class="mdl-dialog__content">
+            <div id="detalhesAbordagem">
+                <!-- Detalhes serão adicionados aqui dinamicamente -->
+            </div>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised" id="btnFecharDetalhes">
+                Fechar
+            </button>
+        </div>
+    </dialog>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script src="/js/db.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/auth-check.js"></script>
+    <script src="/js/backup.js"></script>
+    <script src="/js/busca.js"></script>
+</body>
+</html> 

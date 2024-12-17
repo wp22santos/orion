@@ -1,0 +1,968 @@
+/* Estilos básicos */
+body {
+    background-color: #f5f5f5;
+    overflow-x: hidden; /* Previne scroll horizontal */
+}
+
+/* Container dos formulários */
+.form-container {
+    max-width: 400px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+}
+
+/* Estilos dos cards */
+.mdl-card {
+    width: 100%;
+    min-height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.mdl-card__title {
+    background-color: #3f51b5;
+    color: white;
+    padding: 16px;
+}
+
+.mdl-card__supporting-text {
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+/* Ajustes para mobile */
+@media (max-width: 480px) {
+    .mdl-card__supporting-text {
+        padding: 8px;
+    }
+
+    .mdl-grid {
+        padding: 0;
+        margin: 0;
+    }
+
+    .mdl-cell {
+        margin: 4px;
+    }
+
+    .mdl-textfield {
+        padding: 0;
+        width: 100%;
+    }
+
+    .mdl-button {
+        margin: 4px;
+        min-width: auto;
+    }
+
+    /* Ajuste para botões em linha */
+    .btn-group {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    /* Ajuste para campos de busca */
+    .busca-container {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .busca-container .mdl-textfield {
+        flex: 1;
+    }
+
+    /* Ajuste para câmera e preview */
+    .foto-container video,
+    .foto-container canvas {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* Estilos dos campos de texto */
+.mdl-textfield {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+/* Estilos dos botões */
+.mdl-button {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.mdl-button--raised.mdl-button--colored {
+    background-color: #3f51b5;
+}
+
+.mdl-button--raised.mdl-button--colored:hover {
+    background-color: #303f9f;
+}
+
+/* Estilos da navegação */
+.mdl-layout__header .mdl-navigation__link {
+    color: rgba(255,255,255,.8) !important;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.mdl-layout__header .mdl-navigation__link:hover {
+    color: white !important;
+    background: rgba(255,255,255,.1);
+}
+
+/* Ajustes para o drawer em mobile */
+@media (max-width: 480px) {
+    .mdl-layout__drawer {
+        width: 240px;
+        transform: translateX(-250px);
+    }
+
+    .mdl-layout__drawer.is-visible {
+        transform: translateX(0);
+    }
+
+    .mdl-layout__drawer-button {
+        margin: 4px;
+    }
+}
+
+/* Ajustes para modais em mobile */
+.mdl-dialog {
+    width: 96%;
+    max-width: 96%;
+    max-height: 90vh;
+    overflow-y: auto;
+    margin: 8px;
+}
+
+@media (min-width: 481px) {
+    .mdl-dialog {
+        width: 80%;
+        max-width: 600px;
+        margin: 24px auto;
+    }
+}
+
+/* Ajustes para o mapa */
+#mapa {
+    width: 100% !important;
+    height: 250px !important;
+    margin: 8px 0 !important;
+    border-radius: 4px;
+}
+
+@media (min-width: 481px) {
+    #mapa {
+        height: 300px !important;
+    }
+}
+
+/* Ajustes para cards de resultados */
+.resultado-busca {
+    margin-bottom: 16px !important;
+    width: 100% !important;
+}
+
+.resultado-busca .mdl-card__title {
+    padding: 12px;
+}
+
+.resultado-busca .mdl-card__supporting-text {
+    padding: 8px 12px;
+}
+
+.resultado-busca .mdl-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+}
+
+/* Ajustes para formulário de abordagem */
+.abordado-item {
+    margin-bottom: 16px !important;
+}
+
+.abordado-item .mdl-card__title {
+    padding: 12px;
+}
+
+.abordado-item .mdl-card__supporting-text {
+    padding: 8px;
+}
+
+/* Ajustes para campos de data e hora */
+input[type="datetime-local"] {
+    max-width: 100%;
+    min-height: 36px;
+}
+
+/* Ajustes para campos de busca */
+.busca-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.busca-container .mdl-textfield {
+    flex: 1;
+    margin: 0;
+}
+
+/* Ajustes para botões de ação */
+.mdl-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+    justify-content: flex-end;
+}
+
+/* Ajustes para histórico de abordagens */
+.abordagens-list {
+    margin-top: 16px;
+}
+
+.abordagens-list .mdl-card {
+    margin-bottom: 16px;
+}
+
+/* Ajustes para fotos */
+.foto-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.foto-container video,
+.foto-container canvas {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    border-radius: 4px;
+    margin: 0;
+}
+
+.foto-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.fotos-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    margin: 8px 0;
+}
+
+.foto-miniatura {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border: 2px solid #e0e0e0;
+}
+
+.foto-miniatura:hover {
+    transform: scale(1.05);
+    border-color: #3f51b5;
+}
+
+.galeria-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+.galeria-item {
+    position: relative;
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.galeria-item .btn-remover-foto {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.galeria-item .data-foto {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+@media (max-width: 480px) {
+    .galeria-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .galeria-item img {
+        height: 150px;
+    }
+
+    .foto-miniatura {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Ajustes para campos obrigatórios */
+.mdl-textfield__input[required] + .mdl-textfield__label::after {
+    content: " *";
+    color: #d50000;
+}
+
+/* Ajustes para mensagens de erro */
+.error-message {
+    color: #d50000;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* Ajustes para loading states */
+.is-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Ajustes para scroll em modais */
+.mdl-dialog__content {
+    max-height: calc(90vh - 120px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Ajustes para botões em modais */
+.mdl-dialog__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+    border-top: 1px solid rgba(0,0,0,.12);
+}
+
+/* Ajustes para inputs numéricos em mobile */
+input[type="tel"],
+input[type="number"] {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Estilos para a página de Abordagem */
+#formAbordagem .mdl-card__title {
+    background-color: #3f51b5;
+    color: white;
+}
+
+#formAbordagem .mdl-button {
+    width: auto;
+    margin-right: 1rem;
+}
+
+#formAbordagem .mdl-card__actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.veiculo-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.veiculo-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+#camera, #foto {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+#localizacao {
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+
+#btnCapturarFoto, #btnCapturarLocalizacao {
+    width: auto;
+}
+
+#btnBuscarPessoa, #btnBuscarAcompanhante {
+    margin-top: 0;
+    width: auto;
+}
+
+/* Ajustes para campos de formulário */
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,
+.mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
+    color: #3f51b5;
+}
+
+.mdl-textfield__label:after {
+    background-color: #3f51b5;
+}
+
+/* Ajustes para botões de ação */
+.mdl-button--raised.mdl-button--colored {
+    background-color: #3f51b5;
+}
+
+.mdl-button--raised.mdl-button--colored:hover {
+    background-color: #303f9f;
+}
+
+/* Estilos para Acompanhantes */
+#btnAddAbordado {
+    margin-bottom: 1rem;
+    width: auto;
+}
+
+#btnAddAbordado i {
+    margin-right: 8px;
+}
+
+.acompanhante-item {
+    margin-bottom: 2rem;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.acompanhante-item:last-child {
+    margin-bottom: 0;
+}
+
+.acompanhante-item .mdl-card__title {
+    background-color: #f5f5f5;
+    color: rgba(0,0,0,0.87);
+}
+
+.acompanhante-item .mdl-card__supporting-text {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.acompanhante-item .mdl-textfield {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.acompanhante-item .mdl-card__actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+}
+
+.remover-acompanhante {
+    background-color: #ff5252 !important;
+    color: white !important;
+}
+
+.remover-acompanhante i {
+    margin-right: 8px;
+}
+
+#listaAcompanhantes {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+#listaAcompanhantes::-webkit-scrollbar {
+    width: 6px;
+}
+
+#listaAcompanhantes::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#listaAcompanhantes::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+#listaAcompanhantes::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* Estilos para o Modal de Busca */
+.mdl-dialog {
+    width: 80%;
+    max-width: 600px;
+}
+
+.mdl-dialog__title {
+    color: #3f51b5;
+}
+
+.resultado-busca {
+    margin-bottom: 1rem;
+}
+
+.resultado-busca .mdl-card__title {
+    padding: 12px;
+    background-color: #f5f5f5;
+}
+
+.resultado-busca .mdl-card__supporting-text {
+    padding: 8px 12px;
+}
+
+.resultado-busca .mdl-card__actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 479px) {
+    .mdl-dialog {
+        width: 95%;
+    }
+
+    .mdl-button {
+        margin-top: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .mdl-card__title {
+        padding: 8px;
+    }
+
+    .mdl-card__supporting-text {
+        padding: 8px;
+    }
+}
+
+/* Estilos para a página de Busca */
+.mdl-dialog {
+    width: 80%;
+    max-width: 800px;
+}
+
+.mdl-dialog__title {
+    color: #3f51b5;
+    padding: 24px 24px 0;
+    margin: 0;
+}
+
+.mdl-dialog__content {
+    padding: 20px 24px 24px 24px;
+}
+
+.detalhes-pessoa,
+.detalhes-abordagem,
+.detalhes-foto,
+.detalhes-veiculos,
+.detalhes-acompanhantes {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.detalhes-pessoa h5,
+.detalhes-abordagem h5,
+.detalhes-foto h5,
+.detalhes-veiculos h5,
+.detalhes-acompanhantes h5 {
+    margin-top: 0;
+    color: #3f51b5;
+}
+
+.veiculo-detalhe,
+.acompanhante-detalhe {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.veiculo-detalhe:last-child,
+.acompanhante-detalhe:last-child {
+    margin-bottom: 0;
+}
+
+/* Ajustes para campos de data */
+input[type="date"] {
+    padding: 4px;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    background: transparent;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+input[type="date"]:focus {
+    outline: none;
+    border-bottom: 2px solid #3f51b5;
+}
+
+/* Ajustes para resultados da busca */
+#resultadosBusca {
+    margin-top: 2rem;
+}
+
+#resultadosBusca .mdl-card {
+    min-height: auto;
+}
+
+#resultadosBusca .mdl-card__title {
+    background-color: #3f51b5;
+    color: white;
+}
+
+#resultadosBusca .mdl-card__supporting-text {
+    padding: 16px;
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 839px) {
+    .mdl-dialog {
+        width: 95%;
+        max-width: none;
+    }
+
+    .mdl-dialog__content {
+        padding: 16px;
+    }
+
+    .detalhes-pessoa,
+    .detalhes-abordagem,
+    .detalhes-foto,
+    .detalhes-veiculos,
+    .detalhes-acompanhantes {
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .veiculo-detalhe,
+    .acompanhante-detalhe {
+        padding: 0.5rem;
+    }
+}
+
+/* Estilos específicos para Login e Registro */
+#loginForm, #registroForm {
+    display: none;
+}
+
+#loginForm .mdl-card__title,
+#registroForm .mdl-card__title {
+    background-color: #3f51b5;
+    color: white;
+}
+
+#loginForm .mdl-card__supporting-text,
+#registroForm .mdl-card__supporting-text {
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+#loginForm .mdl-textfield,
+#registroForm .mdl-textfield {
+    width: 100%;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+#loginForm .mdl-button,
+#registroForm .mdl-button {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+#loginForm form,
+#registroForm form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ajustes para os botões de alternância */
+.mdl-layout__header .mdl-navigation__link {
+    color: rgba(255,255,255,.8) !important;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.mdl-layout__header .mdl-navigation__link:hover {
+    color: white !important;
+    background: rgba(255,255,255,.1);
+}
+
+/* Estilos para o Menu de Backup */
+.backup-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: white;
+    min-width: 300px;
+    max-width: 90%;
+    border-radius: 4px;
+}
+
+.backup-menu .mdl-card__title {
+    background-color: #3f51b5;
+    color: white;
+    padding: 16px;
+}
+
+.backup-menu .mdl-card__supporting-text {
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.backup-menu .mdl-button {
+    width: 100%;
+    margin-bottom: 8px;
+    text-align: left;
+    justify-content: flex-start;
+}
+
+.backup-menu .mdl-button i {
+    margin-right: 8px;
+}
+
+.backup-menu #btnFecharMenu {
+    background-color: #f5f5f5;
+}
+
+/* Overlay para o fundo */
+.backup-menu::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+/* Ajustes para o menu lateral */
+.mdl-layout__drawer {
+    background-color: white;
+    border-right: 1px solid rgba(0,0,0,.12);
+}
+
+.mdl-layout__drawer .mdl-layout-title {
+    background-color: #3f51b5;
+    color: white;
+    padding: 16px;
+    height: 64px;
+    line-height: 32px;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+}
+
+.mdl-layout__drawer .mdl-navigation {
+    padding-top: 8px;
+}
+
+.mdl-layout__drawer .mdl-navigation__link {
+    display: flex !important;
+    align-items: center;
+    color: rgba(0,0,0,.87) !important;
+    font-weight: 500;
+    padding: 16px;
+}
+
+.mdl-layout__drawer .mdl-navigation__link i {
+    margin-right: 32px;
+    color: rgba(0,0,0,.54);
+}
+
+.mdl-layout__drawer .mdl-navigation__link:hover {
+    background-color: rgba(0,0,0,.08);
+}
+
+.mdl-layout__drawer .mdl-navigation__link.active {
+    background-color: rgba(63,81,181,.12);
+    color: #3f51b5 !important;
+}
+
+.mdl-layout__drawer .mdl-navigation__link.active i {
+    color: #3f51b5;
+}
+
+@media (max-width: 1024px) {
+    .mdl-layout__drawer {
+        transform: translateX(-250px);
+    }
+    
+    .mdl-layout__drawer.is-visible {
+        transform: translateX(0);
+    }
+} 
+
+/* Estilos para cards de pessoas */
+.pessoa-card {
+    height: 100%;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pessoa-card .mdl-card__title {
+    padding: 0;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.pessoa-foto {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0e0e0;
+}
+
+.pessoa-foto.sem-foto {
+    background-color: #f5f5f5;
+}
+
+.pessoa-foto.sem-foto i {
+    font-size: 64px;
+    color: #9e9e9e;
+}
+
+.pessoa-foto-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pessoa-nome {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.87);
+}
+
+.pessoa-info {
+    margin: 8px 0 0;
+    color: rgba(0,0,0,0.54);
+}
+
+/* Estilos para lista de abordagens */
+.abordagem-card {
+    margin-bottom: 16px;
+}
+
+.abordagem-card:last-child {
+    margin-bottom: 0;
+}
+
+.abordagem-card .mdl-card__title {
+    padding: 16px;
+}
+
+.abordagem-card .mdl-card__supporting-text {
+    padding: 16px;
+}
+
+.sem-abordagens {
+    text-align: center;
+    color: rgba(0,0,0,0.54);
+    padding: 32px;
+}
+
+/* Estilos para detalhes da abordagem */
+.detalhes-abordagem h5 {
+    color: #3f51b5;
+    margin: 24px 0 16px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.detalhes-abordagem h5:first-child {
+    margin-top: 0;
+}
+
+.pessoas-abordadas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.pessoa-abordada {
+    height: 100%;
+}
+
+.pessoa-abordada .mdl-card__title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.pessoa-abordada .pessoa-foto {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.pessoa-abordada .pessoa-foto img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 480px) {
+    .pessoas-abordadas {
+        grid-template-columns: 1fr;
+    }
+
+    .pessoa-card .mdl-card__title {
+        height: 150px;
+    }
+
+    .pessoa-foto.sem-foto i {
+        font-size: 48px;
+    }
+} 

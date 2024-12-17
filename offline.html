@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Sistema Policial</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        }
+        
+        .offline-card {
+            width: 100%;
+            max-width: 600px;
+            padding: 32px;
+            text-align: center;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+        }
+        
+        .material-icons {
+            font-size: 48px;
+            color: #3f51b5;
+            margin-bottom: 16px;
+        }
+        
+        h1 {
+            color: rgba(0,0,0,0.87);
+            font-size: 24px;
+            font-weight: 400;
+            margin: 0 0 16px;
+        }
+        
+        p {
+            color: rgba(0,0,0,0.54);
+            margin: 0 0 24px;
+        }
+        
+        .mdl-button {
+            margin: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-card">
+        <i class="material-icons">cloud_off</i>
+        <h1>Você está offline</h1>
+        <p>Não se preocupe, você ainda pode usar o sistema normalmente. Seus dados estão seguros e serão sincronizados quando a conexão for restabelecida.</p>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="window.location.reload()">
+            <i class="material-icons">refresh</i>
+            Tentar novamente
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--raised" onclick="window.history.back()">
+            <i class="material-icons">arrow_back</i>
+            Voltar
+        </button>
+    </div>
+    
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+</html> 

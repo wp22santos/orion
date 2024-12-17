@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Policial - Nova Abordagem</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">Nova Abordagem</span>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </header>
+
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Menu</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/dashboard.html">
+                    <i class="material-icons">dashboard</i> Dashboard
+                </a>
+                <a class="mdl-navigation__link" href="#" id="btnBuscar">
+                    <i class="material-icons">search</i> Buscar
+                </a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <!-- Formulário de Abordagem -->
+                        <form id="formAbordagem">
+                            <!-- Seção de Local e Data/Hora -->
+                            <div class="mdl-card mdl-shadow--2dp">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text">Local e Data da Abordagem</h2>
+                                </div>
+                                <div class="mdl-card__supporting-text">
+                                    <div class="mdl-grid">
+                                        <div class="mdl-cell mdl-cell--8-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" type="text" id="endereco" required>
+                                                <label class="mdl-textfield__label" for="endereco">Endereço</label>
+                                            </div>
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" type="datetime-local" id="dataHora" required>
+                                                <label class="mdl-textfield__label" for="dataHora">Data e Hora</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Mapa -->
+                                    <div id="mapa"></div>
+                                    
+                                    <input type="hidden" id="latitude">
+                                    <input type="hidden" id="longitude">
+                                </div>
+                            </div>
+
+                            <!-- Seção de Abordados -->
+                            <div class="mdl-card mdl-shadow--2dp">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text">Pessoas Abordadas</h2>
+                                </div>
+                                <div class="mdl-card__supporting-text">
+                                    <button type="button" id="btnAddAbordado" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                        <i class="material-icons">person_add</i> Adicionar Abordado
+                                    </button>
+
+                                    <div id="listaAbordados">
+                                        <!-- Lista de abordados será inserida aqui -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botões de Ação -->
+                            <div class="mdl-card__actions">
+                                <div class="btn-group">
+                                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                        <i class="material-icons">save</i> Salvar Abordagem
+                                    </button>
+                                    <a href="/dashboard.html" class="mdl-button mdl-js-button mdl-button--raised">
+                                        <i class="material-icons">cancel</i> Cancelar
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Template do Abordado -->
+    <template id="templateAbordado">
+        <div class="abordado-item mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Dados do Abordado</h2>
+                <div class="mdl-layout-spacer"></div>
+                <button type="button" class="mdl-button mdl-js-button mdl-button--icon remover-abordado">
+                    <i class="material-icons">delete</i>
+                </button>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <!-- Botão de Busca -->
+                <div class="busca-container">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input buscar-pessoa" type="text">
+                        <label class="mdl-textfield__label">Buscar por Nome, RG ou CPF</label>
+                    </div>
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-buscar">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+                
+                <!-- Foto do Abordado -->
+                <div class="foto-container">
+                    <video class="camera" style="display: none;"></video>
+                    <canvas class="foto-preview" style="display: none;"></canvas>
+                    <div class="fotos-preview">
+                        <!-- Aqui serão mostradas as miniaturas das fotos -->
+                    </div>
+                    <div class="foto-buttons">
+                        <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-foto">
+                            <i class="material-icons">camera_alt</i> Nova Foto
+                        </button>
+                        <button type="button" class="mdl-button mdl-js-button mdl-button--raised btn-galeria" style="display: none;">
+                            <i class="material-icons">collections</i> Ver Fotos
+                        </button>
+                    </div>
+                    <input type="hidden" class="fotos-data">
+                </div>
+                
+                <!-- Campos do Abordado -->
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input nome" type="text" required>
+                            <label class="mdl-textfield__label">Nome Completo</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input nome-mae" type="text" required>
+                            <label class="mdl-textfield__label">Nome da Mãe</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input rg" type="text">
+                            <label class="mdl-textfield__label">RG</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input cpf" type="text">
+                            <label class="mdl-textfield__label">CPF</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input nascimento" type="tel" pattern="[0-9/]*" inputmode="numeric">
+                            <label class="mdl-textfield__label">Data de Nascimento</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input telefone" type="tel" pattern="[0-9()-]*" inputmode="numeric">
+                            <label class="mdl-textfield__label">Telefone</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input endereco" type="text">
+                            <label class="mdl-textfield__label">Endereço Completo</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <textarea class="mdl-textfield__input observacoes" rows="2"></textarea>
+                            <label class="mdl-textfield__label">Observações</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Modal de Resultados de Busca -->
+    <dialog class="mdl-dialog" id="modalResultadosBusca">
+        <div class="mdl-dialog__content">
+            <h4 class="mdl-dialog__title">Resultados da Busca</h4>
+            <div id="resultadosBusca">
+                <!-- Resultados serão adicionados aqui -->
+            </div>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised" id="btnFecharModal">Fechar</button>
+        </div>
+    </dialog>
+
+    <!-- Modal de Detalhes da Pessoa -->
+    <dialog class="mdl-dialog" id="modalDetalhesPessoa">
+        <div class="mdl-dialog__content">
+            <h4 class="mdl-dialog__title">Histórico de Abordagens</h4>
+            <!-- Dados da Pessoa -->
+            <div class="pessoa-info mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Dados Pessoais</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <div id="dadosPessoa">
+                        <!-- Dados serão inseridos aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de Abordagens -->
+            <div class="abordagens-list">
+                <h5>Abordagens Anteriores</h5>
+                <div id="listaAbordagensPessoa">
+                    <!-- Abordagens serão inseridas aqui -->
+                </div>
+            </div>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised" id="btnFecharDetalhesPessoa">Fechar</button>
+        </div>
+    </dialog>
+
+    <!-- Modal da Galeria de Fotos -->
+    <dialog class="mdl-dialog" id="modalGaleria">
+        <div class="mdl-dialog__content">
+            <h4 class="mdl-dialog__title">Galeria de Fotos</h4>
+            <div class="galeria-container">
+                <!-- Fotos serão inseridas aqui -->
+            </div>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised" id="btnFecharGaleria">Fechar</button>
+        </div>
+    </dialog>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+    <script src="/js/db.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/auth-check.js"></script>
+    <script src="/js/abordagem.js"></script>
+</body>
+</html> 
