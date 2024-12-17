@@ -1,7 +1,7 @@
 {
     "name": "Sistema Policial",
     "short_name": "SisPol",
-    "description": "Sistema de registro e consulta de abordagens policiais",
+    "description": "Sistema web policial para registro de abordagens com funcionalidade offline",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
@@ -10,17 +10,12 @@
         {
             "src": "/icons/icon-192x192.png",
             "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any maskable"
+            "type": "image/png"
         },
         {
             "src": "/icons/icon-512x512.png",
             "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any maskable"
+            "type": "image/png"
         }
-    ],
-    "orientation": "portrait",
-    "categories": ["utilities", "security"],
-    "prefer_related_applications": false
+    ]
 } 
